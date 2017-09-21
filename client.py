@@ -36,7 +36,7 @@ for link in links:
 	text = re.sub('[()"]','',link.h5.get_text()) + '\n'
 	# if text != "":
 	message = 'display notification "' + text + '" sound name "Blow" with title "Neue Inserate"'
-	print "\tAdding new entry: {}\n".format(expose)
+	print "\tAdding new entry: https://www.immobilienscout24.de/expose/{}\n".format(expose)
 	# print message
 	call(["osascript", "-e", message])
 
