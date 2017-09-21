@@ -13,7 +13,7 @@ soup = BeautifulSoup(r.text, 'html.parser')
 
 links = soup.find_all('a', { 'class': 'result-list-entry__brand-title-container'})
 
-ids = open('ids', 'a+')
+ids = open('.immoscout24_ids', 'a+')
 ids.seek(0)
 
 exposes = ids.readlines()
