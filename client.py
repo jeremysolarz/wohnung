@@ -7,7 +7,7 @@ from subprocess import call
 import requests
 import re
 
-r = requests.get('https://www.immobilienscout24.de/Suche/S-T/Wohnung-Miete/Berlin/Berlin/Mitte-Mitte_Wedding-Wedding/3,00-/-/EURO--1200,00/-/-/-/-/-/true')
+r = requests.get('https://www.immobilienscout24.de/Suche/S-T/Wohnung-Miete/Berlin/Berlin/Mitte-Mitte_Prenzlauer-Berg-Prenzlauer-Berg_Kreuzberg-Kreuzberg_Wedding-Wedding_Schoeneberg-Schoeneberg/3,00-/-/EURO--1000,00/-/-/-/-/-/true')
 
 soup = BeautifulSoup(r.text, 'html.parser')
 
