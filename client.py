@@ -7,9 +7,9 @@ from subprocess import call
 import requests
 import re
 import click
-import configparser
+import ConfigParser
 
-config = configparser.ConfigParser()
+config = ConfigParser.RawConfigParser()
 
 config.read('config.ini')
 
