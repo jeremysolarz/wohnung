@@ -14,8 +14,8 @@ config = ConfigParser.RawConfigParser()
 config.read('config.ini')
 
 def mailgun(subject, text):
-	url = config['mailgun']['url']
-	key = config['mailgun']['key']
+	url = config.get('mailgun', 'url')
+	key = config.get('mailgun', 'key')
 
 	data={
 		"from": "Mailgun Sandbox <postmaster@sandbox32314ac4c4224e1083144e89b3b33708.mailgun.org>",
@@ -33,8 +33,8 @@ def mac_notification(message):
 
 def pushover(message, url):
 	payload = {
-		"token": config['pushover']['token'],
-		"user": config['pushover']['user'],
+		"token": config.get('pushover', 'token'),
+		"user": config.get('pushover', 'user'),
 		"message": message,
 		"url": url
 	}
@@ -83,14 +83,14 @@ def client(crawl_url, push, mac, mail):
 
 		print "\tAdding new entry: {}\n".format(url)
 
-        if push:
+		if push:
 		    pushover(message, url)
-        if mac:
+		if mac:
 		    mac_notification(message)
-        if mail:
-            mailgun(title, url)
+		if mail:
+			mailgun(title, url)
 
-        ids.write(expose+'\n')
+		ids.write(expose+'\n')
 
 if __name__ == '__main__':
 	client()
