@@ -43,10 +43,11 @@ def pushover(message, url):
 
 @click.command()
 @click.option('--crawl_url', help='Immoscout24 url to crawl.')
+@click.option('--type', default="Wohnung")
 @click.option('--push', is_flag=True)
 @click.option('--mac', is_flag=True)
 @click.option('--mail', is_flag=True)
-def client(crawl_url, push, mac, mail):
+def client(crawl_url, type, push, mac, mail):
 	r = requests.get(crawl_url)
 
 	soup = BeautifulSoup(r.text, 'html.parser')
@@ -75,7 +76,7 @@ def client(crawl_url, push, mac, mail):
 			continue
 
 		text = re.sub('[()"]','',link.h5.get_text()) + '\n'
-		title = "Wohnung {}".format(expose)
+		title = "{} {}".format(type, expose)
 
 		message = u'display notification "{}" sound name "Blow" with title "{}"'.format(text, title).encode('utf-8')
 
