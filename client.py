@@ -13,18 +13,18 @@ config = ConfigParser.RawConfigParser()
 
 config.read('config.ini')
 
-def mailgun(subject, text):
-	url = config.get('mailgun', 'url')
+def mailgun(title, text, url):
+	mailgunurl = config.get('mailgun', 'url')
 	key = config.get('mailgun', 'key')
 
 	data={
 		"from": "Wohnung Service <postmaster@sandbox32314ac4c4224e1083144e89b3b33708.mailgun.org>",
 		"to": ["jeremy.solarz@gmail.com", "jsolarz@google.com"], # "kerstin.jarco@web.de"],
-		"subject": subject,
-		"text": text
+		"subject": title,
+		"text": url
 	}
 	return requests.post(
-		url, auth=("api", key), data=data
+		mailgunurl, auth=("api", key), data=data
 	)
 
 def mac_notification(title, text):
