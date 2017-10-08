@@ -18,8 +18,8 @@ def mailgun(subject, text):
 	key = config.get('mailgun', 'key')
 
 	data={
-		"from": "Mailgun Sandbox <postmaster@sandbox32314ac4c4224e1083144e89b3b33708.mailgun.org>",
-		"to": "Jeremy Solarz <jeremy.solarz@gmail.com>",
+		"from": "Wohnung Service <postmaster@sandbox32314ac4c4224e1083144e89b3b33708.mailgun.org>",
+		"to": ["jeremy.solarz@gmail.com", "jsolarz@google.com"], # "kerstin.jarco@web.de"],
 		"subject": subject,
 		"text": text
 	}
