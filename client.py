@@ -27,14 +27,17 @@ def mailgun(subject, text):
 		url, auth=("api", key), data=data
 	)
 
-def mac_notification(message):
+def mac_notification(title, text):
+	message = u'display notification "{}" sound name "Blow" with title "{}"'.format(text, title).encode('utf-8')
 	call(["osascript", "-e", message])
 
 
-def pushover(message, url):
+def pushover(title, text, url):
+	message = u'{} open {}'.format(text, url).encode('utf-8')
 	payload = {
 		"token": config.get('pushover', 'token'),
 		"user": config.get('pushover', 'user'),
+		"title": title,
 		"message": message,
 		"url": url
 	}
@@ -78,18 +81,16 @@ def client(crawl_url, type, push, mac, mail):
 		text = re.sub('[()"]','',link.h5.get_text()) + '\n'
 		title = "{} {}".format(type, expose)
 
-		message = u'display notification "{}" sound name "Blow" with title "{}"'.format(text, title).encode('utf-8')
-
 		url = "https://www.immobilienscout24.de/expose/{}\n".format(expose)
 
 		print "\tAdding new entry: {}\n".format(url)
 
 		if push:
-		    pushover(message, url)
+		    pushover(title, text, url)
 		if mac:
-		    mac_notification(message)
+		    mac_notification(title, text)
 		if mail:
-			mailgun(title, url)
+			mailgun(title, text, url)
 
 		ids.write(expose+'\n')
 
