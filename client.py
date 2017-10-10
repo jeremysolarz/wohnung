@@ -13,13 +13,13 @@ config = ConfigParser.RawConfigParser()
 
 config.read('config.ini')
 
-def mailgun(title, text, url):
+def mailgun(title, mail, url):
 	mailgunurl = config.get('mailgun', 'url')
 	key = config.get('mailgun', 'key')
 
 	data={
 		"from": "Wohnung Service <postmaster@sandbox32314ac4c4224e1083144e89b3b33708.mailgun.org>",
-		"to": ["jeremy.solarz@gmail.com", "jsolarz@google.com"], # "kerstin.jarco@web.de"],
+		"to": mail.split(","),
 		"subject": title,
 		"text": url
 	}
@@ -49,7 +49,7 @@ def pushover(title, text, url):
 @click.option('--type', default="Wohnung")
 @click.option('--push', is_flag=True)
 @click.option('--mac', is_flag=True)
-@click.option('--mail', is_flag=True)
+@click.option('--mail', default="jeremy.solarz@gmail.com")
 def client(crawl_url, type, push, mac, mail):
 	r = requests.get(crawl_url)
 
@@ -90,7 +90,7 @@ def client(crawl_url, type, push, mac, mail):
 		if mac:
 		    mac_notification(title, text)
 		if mail:
-			mailgun(title, text, url)
+			mailgun(title, mail, url)
 
 		ids.write(expose+'\n')
 
